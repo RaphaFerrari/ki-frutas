@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="bg-[#050505]">
+<html lang="pt-BR" class="bg-[#000000]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ki-Frutas | Boutique de Frutas Premium no CeasaMinas</title>
-    <meta name="description" content="A arte da curadoria em frutas. Unindo você à qualidade suprema, desde 1987.">
+    <meta name="description" content="A arte da curadoria em frutas. Unindo você à qualidade suprema, 4 décadas de tradição.">
     
     <meta property="og:title" content="Ki-Frutas Premium">
     <meta property="og:description" content="Curadoria diária de frutas nacionais e importadas. Boutique no CeasaMinas.">
@@ -12,12 +12,12 @@
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
 
-    <!-- Fonts -->
+    <!-- Fonts: Supreme elegance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
-    <!-- Icons & GSAP & Lenis -->
+    <!-- Icons, Tailwind, GSAP, Lenis -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -31,16 +31,15 @@
                     },
                     colors: {
                         brand: {
-                            red: '#C21818', /* Um vermelho mais profundo e elegante */
-                            dark: '#030303',
+                            red: '#9B111E', /* Ruby Red */
+                            dark: '#000000',
                             light: '#F4F4F0',
-                            gold: '#C5A059', /* Dourado Champagne */
-                            gray: '#111111',
-                            border: 'rgba(255,255,255,0.05)'
+                            gold: '#D4AF37', /* Pure Gold */
+                            gray: '#0A0A0A',
+                            border: 'rgba(255,255,255,0.08)'
                         }
                     },
                     spacing: {
-                        '30': '7.5rem',
                         'screen-20': '120vh',
                     }
                 }
@@ -49,53 +48,70 @@
     </script>
 
     <style>
-        /* Base Reset & Custom Scrollbar */
-        html { scroll-behavior: initial; } /* Desativa o smooth nativo para o Lenis assumir */
-        body { cursor: none; overflow-x: hidden; background-color: #030303; }
-        ::-webkit-scrollbar { display: none; } /* Esconde scrollbar para look clean */
+        /* Base Reset & Smoothness */
+        html { scroll-behavior: initial; background-color: #000; }
+        body { cursor: none; overflow-x: hidden; background-color: #000; color: #F4F4F0; }
+        ::-webkit-scrollbar { display: none; }
         
-        /* Noise Texture Overlay */
+        /* Premium Noise Overlay */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9999; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9998; opacity: 0.05; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Custom Cursor */
+        /* Magnetic Exclusion Cursor (Ultra Premium) */
         .cursor-dot {
-            width: 8px; height: 8px; background: #C5A059; border-radius: 50%;
+            width: 10px; height: 10px; background: #fff; border-radius: 50%;
             position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            pointer-events: none; z-index: 10000; transition: width 0.3s, height 0.3s, background 0.3s;
+            pointer-events: none; z-index: 10000; mix-blend-mode: difference;
+            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1), height 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid rgba(197, 160, 89, 0.5); border-radius: 50%;
+            width: 40px; height: 40px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
             position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+            pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+            transition: transform 0.1s ease-out, width 0.4s, height 0.4s, background 0.4s;
         }
-        .hover-active .cursor-dot { width: 0; height: 0; }
-        .hover-active .cursor-outline { width: 60px; height: 60px; background: rgba(197, 160, 89, 0.1); border-color: #C5A059; backdrop-filter: blur(2px); }
+        .hover-active .cursor-dot { width: 80px; height: 80px; background: #fff; mix-blend-mode: difference; }
+        .hover-active .cursor-outline { opacity: 0; }
+        .hover-image .cursor-dot { width: 100px; height: 100px; background: #D4AF37; mix-blend-mode: normal; text-align: center; line-height: 100px; color: #000; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 14px; content: "Ver"; }
+        .hover-image .cursor-dot::after { content: "EXPLORAR"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); letter-spacing: 2px; font-size: 10px; }
 
-        /* Typography & Utilities */
-        .text-huge { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.9; }
-        .clip-text { -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .stroke-text { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
+        /* Typography Mastery */
+        .text-monumental { font-size: clamp(3.2rem, 10vw, 10rem); line-height: 0.9; letter-spacing: -0.02em; }
+        .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.15); color: transparent; }
         
-        /* GSAP Setup Classes */
-        .reveal-text, .reveal-img, .fade-up { visibility: hidden; }
+        /* GSAP Initial States */
+        .reveal-word, .fade-up, .scale-out { visibility: hidden; }
         
-        /* Image Hover Polish */
-        .img-wrap { overflow: hidden; position: relative; }
-        .img-wrap img { transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); will-change: transform; }
-        .img-wrap:hover img { transform: scale(1.05); }
+        /* Image Masks & Parallax */
+        .img-mask { overflow: hidden; position: relative; clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); transition: clip-path 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        .img-mask.is-revealed { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        .img-inner { width: 100%; height: 100%; object-fit: cover; transform: scale(1.2); transition: transform 2s cubic-bezier(0.19, 1, 0.22, 1); will-change: transform; }
+        .img-mask.is-revealed .img-inner { transform: scale(1); }
+        
+        .hover-scale:hover .img-inner { transform: scale(1.08) !important; }
 
-        /* Marquee */
-        .marquee-container { overflow: hidden; white-space: nowrap; width: 100%; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.5rem 0; }
-        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        /* Smooth Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; width: 100%; border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding: 2rem 0; background: #050505; }
+        .marquee-content { display: inline-block; animation: marquee 40s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Loader */
-        #preloader { position: fixed; inset: 0; background: #030303; z-index: 100000; display: flex; justify-content: center; align-items: center; }
-        .loader-text { font-family: 'Playfair Display', serif; font-size: 2rem; color: #C5A059; opacity: 0; }
+        /* Cinematic Preloader */
+        #preloader { position: fixed; inset: 0; background: #000; z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .loader-counter { font-family: 'Playfair Display', serif; font-size: 5rem; color: #D4AF37; font-weight: 300; }
+        .loader-bar-wrap { width: 200px; height: 1px; background: rgba(255,255,255,0.1); margin-top: 2rem; position: relative; overflow: hidden; }
+        .loader-bar { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: #D4AF37; }
+
+        /* Glassmorphism Header */
+        header.scrolled { background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; padding-bottom: 1rem; }
+
+        /* Bento Grid Refinements */
+        .bento-card { background: linear-gradient(145deg, #0a0a0a 0%, #030303 100%); border: 1px solid rgba(255,255,255,0.03); box-shadow: inset 0 0 40px rgba(0,0,0,0.5); }
+        
+        /* Magnet Button */
+        .magnet-btn { position: relative; display: inline-flex; justify-content: center; align-items: center; }
     </style>
 </head>
 <body class="text-brand-light antialiased selection:bg-brand-gold selection:text-brand-dark">
@@ -104,19 +120,20 @@
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
-    <!-- Preloader -->
+    <!-- Cinematic Preloader -->
     <div id="preloader">
-        <div class="loader-text tracking-[0.2em] italic">Ki-Frutas.</div>
+        <div class="loader-counter"><span id="loader-perc">0</span>%</div>
+        <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
     </div>
 
-    <header class="fixed w-full top-0 z-50 mix-blend-difference px-6 md:px-12 py-6 flex justify-between items-center pointer-events-none">
-        <a href="#" class="relative z-10 pointer-events-auto interactive-elem">
-            <!-- Logo usando filtro para ficar branca/brilhante no mix-blend -->
-            <img src="image_f31069.png" alt="Ki-Frutas" class="h-10 md:h-12 object-contain brightness-0 invert opacity-90" onerror="this.src='https://via.placeholder.com/150x50/000000/ffffff?text=KI-FRUTAS'">
+    <!-- Header -->
+    <header id="header" class="fixed w-full top-0 z-50 px-6 md:px-12 py-6 flex justify-between items-center transition-all duration-700">
+        <a href="#" class="relative z-10 interactive-elem">
+            <img src="image_f31069.png" alt="Ki-Frutas" class="h-10 md:h-12 object-contain brightness-0 invert opacity-90 transition-transform hover:scale-105" onerror="this.src='https://via.placeholder.com/150x50/000000/ffffff?text=KI-FRUTAS'">
         </a>
-        <a href="https://wa.me/5531339942060" target="_blank" class="pointer-events-auto interactive-elem flex items-center gap-2 text-sm font-sans tracking-widest uppercase text-white hover:text-brand-gold transition-colors duration-500">
-            <span class="hidden md:inline">Falar com Consultor</span>
-            <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-brand-gold transition-colors">
+        <a href="https://wa.me/5531339942060" target="_blank" class="interactive-elem flex items-center gap-4 text-xs font-sans tracking-[0.2em] uppercase text-white group">
+            <span class="hidden md:inline group-hover:text-brand-gold transition-colors duration-500">Concierge Digital</span>
+            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-brand-gold group-hover:bg-brand-gold group-hover:text-black transition-all duration-500 backdrop-blur-sm magnet-btn" data-strength="20">
                 <i class="ph ph-whatsapp-logo text-xl"></i>
             </div>
         </a>
@@ -125,155 +142,202 @@
     <main id="smooth-wrapper">
         <div id="smooth-content">
 
-            <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 z-0 bg-brand-dark">
-                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Frutas Premium" 
-                         class="w-full h-full object-cover object-center opacity-40 scale-110" id="hero-img">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/50"></div>
+            <!-- HERO SECTION: Immersive full screen -->
+            <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark">
+                <!-- Abstract/Moody Background Image -->
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Frutas Premium Macro" 
+                         class="w-full h-full object-cover object-center opacity-40 scale-125 filter contrast-125" id="hero-img">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#000000]/80 via-[#000000]/40 to-[#000000]"></div>
+                    <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#000] opacity-90"></div>
                 </div>
 
-                <div class="relative z-10 w-full px-6 md:px-12 flex flex-col justify-end h-full pb-20 md:pb-32">
-                    <p class="fade-up text-brand-gold font-sans tracking-[0.3em] uppercase text-xs mb-6 flex items-center gap-4">
-                        <span class="w-8 h-[1px] bg-brand-gold"></span>
-                        Qualidade desde 1987
-                    </p>
-                    <h1 class="font-serif text-huge font-medium text-white mb-6">
-                        <div class="overflow-hidden"><span class="block reveal-text">A Arte da</span></div>
-                        <div class="overflow-hidden"><span class="block reveal-text italic text-brand-gold">Fruta.</span></div>
-                    </h1>
-                    
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-t border-brand-border pt-8 mt-12 gap-8">
-                        <p class="fade-up font-sans font-light text-gray-400 max-w-md text-lg leading-relaxed">
-                            Da terra à sua mesa. Curadoria diária direta do maior entreposto de Minas Gerais para lares e alta gastronomia.
+                <div class="relative z-10 w-full px-6 md:px-12 flex flex-col justify-center h-full pt-20">
+                    <div class="max-w-7xl mx-auto w-full">
+                        <p class="fade-up text-brand-gold font-sans tracking-[0.4em] uppercase text-sm md:text-base font-semibold mb-8 flex items-center gap-4 drop-shadow-md">
+                            <span class="w-16 h-[2px] bg-brand-gold shadow-[0_0_10px_rgba(212,175,55,0.8)]"></span>
+                            Qualidade desde 1987
                         </p>
                         
-                        <a href="#vitrine" class="fade-up interactive-elem group flex items-center gap-4 cursor-none">
-                            <span class="uppercase tracking-widest text-xs font-semibold text-white group-hover:text-brand-gold transition-colors">Descubra</span>
-                            <div class="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                                <i class="ph ph-arrow-down-right text-white text-2xl"></i>
+                        <h1 class="font-serif text-monumental text-white mb-8 relative z-20">
+                            <div class="overflow-hidden flex items-center flex-wrap gap-2 md:gap-4">
+                                <span class="block reveal-word font-bold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.3)]">KI-FRUTAS</span> 
+                                <span class="block reveal-word text-brand-gold drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">.</span>
                             </div>
-                        </a>
+                        </h1>
+                        
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-t border-brand-border pt-10 gap-8">
+                            <p class="fade-up font-sans font-light text-gray-300 max-w-lg text-lg md:text-xl leading-relaxed">
+                                Curadoria implacável. Trazemos as joias da fruticultura mundial diretamente para os paladares mais exigentes.
+                            </p>
+                            
+                            <a href="#filosofia" class="fade-up interactive-elem group flex items-center gap-6 cursor-none magnet-btn" data-strength="30">
+                                <span class="uppercase tracking-[0.2em] text-xs font-semibold text-white group-hover:text-brand-gold transition-colors">Explorar</span>
+                                <div class="w-16 h-16 rounded-full bg-brand-red flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(155,17,30,0.4)] relative">
+                                    <div class="absolute inset-0 rounded-full border-2 border-brand-red animate-ping opacity-30 group-hover:opacity-0 transition-opacity"></div>
+                                    <i class="ph ph-arrow-down text-white text-2xl relative z-10"></i>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <div class="marquee-container bg-brand-gray flex text-brand-gold font-serif text-3xl md:text-5xl italic opacity-90">
-                <div class="marquee-content">
-                    Boutique de Frutas ✦ CeasaMinas ✦ Qualidade Premium ✦ Desde 1987 ✦ Nacionais & Importadas ✦ Alta Gastronomia ✦ Boutique de Frutas ✦ CeasaMinas ✦ Qualidade Premium ✦ Desde 1987 ✦ Nacionais & Importadas ✦ Alta Gastronomia ✦
+            <!-- Filosofia & Tradição (4 Décadas) -->
+            <section id="filosofia" class="py-32 md:py-48 px-6 md:px-12 bg-[#000]">
+                <div class="max-w-7xl mx-auto">
+                    <div class="flex flex-col lg:flex-row gap-20">
+                        <!-- Typographic statement -->
+                        <div class="lg:w-2/3">
+                            <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-12">
+                                <div class="overflow-hidden"><span class="block reveal-word">Não vendemos frutas.</span></div>
+                                <div class="overflow-hidden"><span class="block reveal-word text-gray-500 italic">Entregamos excelência</span></div>
+                                <div class="overflow-hidden"><span class="block reveal-word">lapidada por <span class="text-brand-gold">4 décadas</span>.</span></div>
+                            </h2>
+                            
+                            <div class="fade-up">
+                                <a href="https://wa.me/5531339942060" target="_blank" class="interactive-elem inline-flex items-center gap-4 text-brand-gold font-sans tracking-widest uppercase text-xs hover:text-white transition-all group">
+                                    <span class="border-b border-brand-gold pb-1 group-hover:border-white transition-colors">Fale com um curador</span> 
+                                    <i class="ph ph-arrow-up-right text-lg group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="lg:w-1/3 flex flex-col justify-center gap-16 border-l border-brand-border pl-10 md:pl-16">
+                            <div class="fade-up relative">
+                                <div class="absolute -left-10 md:-left-16 top-4 w-4 h-[1px] bg-brand-gold"></div>
+                                <div class="font-serif text-7xl text-white mb-3">40<span class="text-brand-gold italic text-5xl">anos</span></div>
+                                <p class="font-sans text-xs text-gray-400 tracking-[0.2em] uppercase">De tradição impecável (Desde 1987)</p>
+                            </div>
+                            <div class="fade-up relative">
+                                <div class="absolute -left-10 md:-left-16 top-4 w-4 h-[1px] bg-brand-gold"></div>
+                                <div class="font-serif text-7xl text-white mb-3">80<span class="text-brand-gold italic text-5xl">+</span></div>
+                                <p class="font-sans text-xs text-gray-400 tracking-[0.2em] uppercase">Variedades selecionadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bento Grid - Diferenciais Ultra Premium -->
+            <section class="py-20 px-6 md:px-12 bg-[#000]">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:auto-rows-[400px]">
+                        
+                        <!-- Card 1: Curadoria (Span 8) -->
+                        <div class="img-mask md:col-span-8 rounded-3xl group interactive-img hover-image cursor-none">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1600&auto=format&fit=crop" alt="Curadoria Ceasa" class="img-inner filter grayscale-[30%] brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-12 flex flex-col justify-end">
+                                <span class="text-brand-gold font-sans tracking-widest text-xs uppercase mb-4 block">Inspeção In loco</span>
+                                <h3 class="font-serif text-4xl md:text-5xl mb-4 text-white">Curadoria na<br>Madrugada.</h3>
+                                <p class="font-sans text-gray-300 max-w-md font-light">Selecionamos cada lote no pavilhão antes que o sol nasça. A textura, a cor e o sabor que a alta gastronomia exige.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Importadas (Span 4) -->
+                        <div class="md:col-span-4 rounded-3xl bento-card p-10 flex flex-col justify-between relative overflow-hidden group interactive-elem">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold rounded-full opacity-0 blur-[80px] group-hover:opacity-10 transition-opacity duration-1000 translate-x-1/2 -translate-y-1/2"></div>
+                            
+                            <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center mb-8">
+                                <i class="ph-light ph-airplane-tilt text-3xl text-brand-gold"></i>
+                            </div>
+                            
+                            <div>
+                                <h3 class="font-serif text-3xl mb-4 text-white">Linha<br><span class="italic text-gray-400">Importada</span></h3>
+                                <p class="font-sans text-sm text-gray-400 font-light leading-relaxed">Cerejas, kiwis gold, pitayas. As joias da fruticultura mundial, despachadas para você com frescor absoluto.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Contato (Span 4) -->
+                        <div class="md:col-span-4 rounded-3xl bg-brand-red p-10 flex flex-col justify-between interactive-elem hover:bg-[#7a0a16] transition-colors duration-700 group">
+                            <div class="w-16 h-16 rounded-full border border-white/30 flex items-center justify-center mb-8 bg-white/5">
+                                <i class="ph-light ph-storefront text-3xl text-white group-hover:scale-110 transition-transform"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-3xl mb-4 text-white">Direto da<br>Fonte</h3>
+                                <p class="font-sans text-sm text-white/80 font-light leading-relaxed">Sediados no coração do CeasaMinas. Zero intermediários significa qualidade inigualável e preço justo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Imagem Secundária (Span 8) -->
+                        <div class="img-mask md:col-span-8 rounded-3xl group interactive-img hover-image cursor-none">
+                            <img src="https://images.unsplash.com/photo-1550258859-d084c02781af?q=80&w=1600&auto=format&fit=crop" alt="Detalhe Fruta" class="img-inner filter grayscale-[20%] brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent p-12 flex flex-col justify-end">
+                                <h3 class="font-serif text-4xl text-white">A cor da perfeição.</h3>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marquee Premium -->
+            <div class="marquee-container mt-20">
+                <div class="marquee-content font-serif text-4xl md:text-6xl text-brand-gold italic">
+                    ✧ Boutique CeasaMinas ✧ Qualidade Extrema ✧ 40 Anos de Tradição ✧ Frutas Importadas ✧ Alta Gastronomia ✧ Boutique CeasaMinas ✧ Qualidade Extrema ✧ 40 Anos de Tradição ✧ Frutas Importadas ✧ Alta Gastronomia ✧
                 </div>
             </div>
 
-            <section class="py-32 md:py-48 px-6 md:px-12 bg-brand-dark relative">
-                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-16">
-                    <div class="lg:w-1/2">
-                        <h2 class="font-serif text-4xl md:text-6xl mb-10 leading-tight">
-                            <div class="overflow-hidden"><span class="block reveal-text">Não somos um</span></div>
-                            <div class="overflow-hidden"><span class="block reveal-text italic text-gray-500">fornecedor comum.</span></div>
-                            <div class="overflow-hidden"><span class="block reveal-text">Somos <span class="text-brand-gold">curadores</span>.</span></div>
-                        </h2>
-                        <a href="https://wa.me/5531339942060" target="_blank" class="interactive-elem inline-flex items-center gap-3 border-b border-brand-gold pb-1 text-brand-gold font-sans tracking-widest uppercase text-sm hover:text-white hover:border-white transition-all">
-                            Agendar Visita ao Ceasa <i class="ph ph-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <div class="lg:w-1/3 flex flex-col justify-center gap-12">
-                        <div class="fade-up border-l border-brand-border pl-8">
-                            <div class="font-serif text-6xl text-white mb-2">37<span class="text-brand-gold italic">anos</span></div>
-                            <p class="font-sans text-sm text-gray-400 tracking-wider uppercase">De tradição impecável</p>
-                        </div>
-                        <div class="fade-up border-l border-brand-border pl-8">
-                            <div class="font-serif text-6xl text-white mb-2">80<span class="text-brand-gold italic">+</span></div>
-                            <p class="font-sans text-sm text-gray-400 tracking-wider uppercase">Variedades catalogadas</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="diferenciais" class="py-20 px-6 md:px-12 bg-[#050505]">
-                <div class="max-w-7xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[300px]">
-                        
-                        <!-- Bento 1: Imagem Grande -->
-                        <div class="img-wrap fade-up md:col-span-2 md:row-span-2 rounded-2xl bg-brand-gray relative group">
-                            <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=1200&auto=format&fit=crop" alt="Curadoria" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent p-10 flex flex-col justify-end">
-                                <h3 class="font-serif text-4xl mb-3">Inspeção Madrugada Adentro</h3>
-                                <p class="font-sans text-gray-300 max-w-md">Nossa equipe seleciona cada lote diretamente no pavilhão para garantir textura, cor e sabor que a alta gastronomia exige.</p>
-                            </div>
-                        </div>
-
-                        <!-- Bento 2: Importadas -->
-                        <div class="fade-up md:col-span-1 md:row-span-1 rounded-2xl bg-[#0a0a0a] border border-white/5 p-10 flex flex-col justify-center relative overflow-hidden group interactive-elem">
-                            <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-brand-gold rounded-full opacity-10 blur-2xl group-hover:opacity-20 transition-opacity"></div>
-                            <i class="ph-light ph-airplane-tilt text-4xl text-brand-gold mb-6"></i>
-                            <h3 class="font-serif text-2xl mb-2">Linha Importada</h3>
-                            <p class="font-sans text-sm text-gray-400">Joias da fruticultura mundial trazidas diretamente para você.</p>
-                        </div>
-
-                        <!-- Bento 3: Contato Direto -->
-                        <div class="fade-up md:col-span-1 md:row-span-1 rounded-2xl bg-brand-red p-10 flex flex-col justify-center interactive-elem hover:bg-[#a11313] transition-colors">
-                            <i class="ph-light ph-storefront text-4xl text-white mb-6"></i>
-                            <h3 class="font-serif text-2xl mb-2">Direto da Fonte</h3>
-                            <p class="font-sans text-sm text-white/80">Sediados no coração do CeasaMinas. Frescor máximo, sem intermediários.</p>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="vitrine" class="py-32 bg-[#030303] overflow-hidden relative">
-                <div class="px-6 md:px-12 mb-16 max-w-7xl mx-auto flex justify-between items-end">
-                    <h2 class="font-serif text-4xl md:text-6xl">
-                        A Coleção<br><span class="text-brand-gold italic">Premium</span>
+            <!-- GSAP Horizontal Scroll: A Vitrine Imersiva -->
+            <section id="vitrine" class="py-32 bg-[#000] overflow-hidden relative">
+                <div class="px-6 md:px-12 mb-20 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                    <h2 class="font-serif text-5xl md:text-7xl leading-none">
+                        A Coleção<br><span class="text-outline italic text-gray-500">Exclusiva</span>
                     </h2>
-                    <p class="hidden md:block font-sans text-gray-500 uppercase tracking-widest text-xs border-b border-gray-500 pb-1">
-                        Deslize para explorar
-                    </p>
+                    <div class="flex items-center gap-4 text-brand-gold">
+                        <span class="w-12 h-[1px] bg-brand-gold"></span>
+                        <p class="font-sans uppercase tracking-[0.2em] text-xs">Deslize para explorar</p>
+                    </div>
                 </div>
 
-                <!-- GSAP Horizontal Scroll Container -->
-                <div class="horizontal-scroll-wrapper relative w-full h-[60vh] md:h-[70vh]">
+                <div class="horizontal-scroll-wrapper relative w-full h-[65vh] md:h-[75vh]">
                     <div class="horizontal-scroll-content flex gap-8 px-6 md:px-12 h-full w-max absolute top-0 left-0">
                         
                         <!-- Item 1 -->
-                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem">
-                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Cerejas">
-                            </div>
-                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                <h3 class="font-serif text-4xl text-white mb-2">Cerejas Importadas</h3>
-                                <p class="text-brand-gold font-sans">Calibre graúdo e brilho intenso</p>
+                        <div class="vitrine-item w-[85vw] md:w-[45vw] h-full relative group interactive-img hover-image cursor-none">
+                            <div class="w-full h-full rounded-2xl overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover parallax-img scale-125 filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" alt="Cerejas">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                                    <span class="text-brand-gold font-sans text-xs tracking-widest uppercase mb-2">Linha Importada</span>
+                                    <h3 class="font-serif text-4xl md:text-5xl text-white mb-3">Cerejas Premium</h3>
+                                    <p class="text-gray-300 font-sans font-light">Calibre graúdo, textura firme e brilho intenso.</p>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Item 2 -->
-                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem mt-12 md:mt-24">
-                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1550258859-d084c02781af?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Mamão">
-                            </div>
-                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                <h3 class="font-serif text-4xl text-white mb-2">Papaya Exportação</h3>
-                                <p class="text-brand-gold font-sans">Doçura e textura uniformes</p>
+                        <div class="vitrine-item w-[85vw] md:w-[45vw] h-full relative group interactive-img hover-image cursor-none mt-12 md:mt-24">
+                            <div class="w-full h-full rounded-2xl overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover parallax-img scale-125 filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" alt="Uvas">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                                    <span class="text-brand-gold font-sans text-xs tracking-widest uppercase mb-2">Seleção Nacional</span>
+                                    <h3 class="font-serif text-4xl md:text-5xl text-white mb-3">Uvas Especiais</h3>
+                                    <p class="text-gray-300 font-sans font-light">Cachos perfeitos, sem sementes e máxima crocância.</p>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Item 3 -->
-                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem">
-                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Uvas">
-                            </div>
-                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                <h3 class="font-serif text-4xl text-white mb-2">Uvas Especiais</h3>
-                                <p class="text-brand-gold font-sans">Sem sementes, máxima crocância</p>
+                        <div class="vitrine-item w-[85vw] md:w-[45vw] h-full relative group interactive-img hover-image cursor-none">
+                            <div class="w-full h-full rounded-2xl overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover parallax-img scale-125 filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" alt="Maçãs">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-10 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                                    <span class="text-brand-gold font-sans text-xs tracking-widest uppercase mb-2">O Símbolo Ki-Frutas</span>
+                                    <h3 class="font-serif text-4xl md:text-5xl text-white mb-3">Maçãs de Elite</h3>
+                                    <p class="text-gray-300 font-sans font-light">A fruta que inspirou nossa marca, em sua melhor forma.</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Item CTA -->
-                        <div class="w-[85vw] md:w-[30vw] h-full flex flex-col items-center justify-center bg-[#0a0a0a] rounded-xl border border-white/5 p-10 interactive-elem">
-                            <h3 class="font-serif text-3xl mb-6 text-center">Acesse a Tabela Completa do Dia</h3>
-                            <a href="https://wa.me/5531339942060?text=Olá,%20gostaria%20da%20tabela%20de%20frutas%20premium%20de%20hoje." target="_blank" class="w-16 h-16 rounded-full bg-brand-gold flex items-center justify-center hover:scale-110 transition-transform">
-                                <i class="ph ph-whatsapp-logo text-black text-2xl"></i>
+                        <!-- CTA Final -->
+                        <div class="vitrine-item w-[85vw] md:w-[35vw] h-full flex flex-col items-center justify-center bento-card rounded-2xl p-12 interactive-elem">
+                            <i class="ph-light ph-file-text text-6xl text-brand-gold mb-6"></i>
+                            <h3 class="font-serif text-4xl mb-6 text-center text-white">Catálogo<br>Completo</h3>
+                            <p class="font-sans text-gray-400 text-center mb-8 font-light">Solicite a disponibilidade e valores atualizados de hoje.</p>
+                            <a href="https://wa.me/5531339942060?text=Olá,%20poderia%20me%20enviar%20a%20tabela%20premium%20de%20hoje?" target="_blank" class="w-20 h-20 rounded-full bg-brand-gold flex items-center justify-center hover:scale-110 transition-transform duration-500 magnet-btn" data-strength="40">
+                                <i class="ph-fill ph-whatsapp-logo text-black text-3xl"></i>
                             </a>
                         </div>
 
@@ -281,185 +345,186 @@
                 </div>
             </section>
 
-            <section id="localizacao" class="py-32 px-6 md:px-12 bg-[#050505] relative border-t border-brand-border">
-                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Localização com Mapa Premium -->
+            <section id="localizacao" class="py-32 px-6 md:px-12 bg-[#000] relative border-t border-brand-border">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                     
-                    <div class="order-2 lg:order-1 h-[60vh] img-wrap rounded-2xl overflow-hidden">
+                    <div class="lg:col-span-7 order-2 lg:order-1 h-[60vh] img-mask rounded-3xl relative">
                         <!-- Mapa Estilizado Escuro -->
+                        <div class="absolute inset-0 z-10 pointer-events-none rounded-3xl border border-white/5 shadow-[inset_0_0_50px_rgba(0,0,0,1)]"></div>
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.492211910609!2d-44.0456102241639!3d-19.88251268141829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa695e263725b8b%3A0xc6ed709ee00f1c90!2sCeasaMinas!5e0!3m2!1spt-BR!2sbr!4v1716300000000!5m2!1spt-BR!2sbr" 
-                            width="100%" height="100%" style="border:0; filter: grayscale(100%) invert(90%) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+                            class="img-inner w-full h-full" style="border:0; filter: grayscale(100%) invert(100%) contrast(1.5) sepia(20%) hue-rotate(10deg);" allowfullscreen="" loading="lazy"></iframe>
                     </div>
 
-                    <div class="order-1 lg:order-2 fade-up">
-                        <p class="text-brand-gold font-sans tracking-widest uppercase text-sm mb-4">A Experiência Física</p>
-                        <h2 class="font-serif text-4xl md:text-5xl mb-10">Pavilhão L.<br><span class="italic text-gray-500">Sinta o frescor.</span></h2>
-                        
-                        <div class="space-y-8 font-sans">
-                            <div class="flex flex-col">
-                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Endereço</span>
-                                <span class="text-lg">CEASAMINAS - Pavilhão L<br>Rua Ibiá, Contagem / MG</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Horários</span>
-                                <span class="text-lg">Seg - Sex: 05h às 16h<br>Sáb: 05h às 12h</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Contato Direto</span>
-                                <a href="tel:+553133942060" class="text-2xl font-serif text-brand-gold hover:text-white transition-colors interactive-elem w-fit">(31) 3394-2060</a>
+                    <div class="lg:col-span-5 order-1 lg:order-2">
+                        <div class="fade-up">
+                            <p class="text-brand-gold font-sans tracking-[0.2em] uppercase text-xs mb-6">Onde a mágica acontece</p>
+                            <h2 class="font-serif text-5xl md:text-6xl mb-12 leading-[1.1]">Pavilhão L.<br><span class="text-outline italic">Visite-nos.</span></h2>
+                            
+                            <div class="space-y-10 font-sans">
+                                <div class="flex flex-col group">
+                                    <span class="text-gray-500 text-xs uppercase tracking-[0.1em] mb-2 font-semibold">Endereço</span>
+                                    <span class="text-xl text-gray-200 font-light group-hover:text-brand-gold transition-colors">CEASAMINAS - Pavilhão L<br>Rua Ibiá, Contagem / MG</span>
+                                </div>
+                                <div class="w-full h-px bg-white/5"></div>
+                                <div class="flex flex-col group">
+                                    <span class="text-gray-500 text-xs uppercase tracking-[0.1em] mb-2 font-semibold">Horários</span>
+                                    <span class="text-xl text-gray-200 font-light group-hover:text-brand-gold transition-colors">Seg - Sex: 05h às 16h<br>Sáb: 05h às 12h</span>
+                                </div>
+                                <div class="w-full h-px bg-white/5"></div>
+                                <div class="flex flex-col group">
+                                    <span class="text-gray-500 text-xs uppercase tracking-[0.1em] mb-2 font-semibold">Contato Corporativo</span>
+                                    <a href="tel:+553133942060" class="text-3xl font-serif text-white hover:text-brand-gold transition-colors interactive-elem w-fit mt-1">(31) 3394-2060</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <footer class="bg-brand-dark pt-32 pb-10 px-6 md:px-12 border-t border-brand-border text-center overflow-hidden">
-                <!-- Huge Typography Footer Logo -->
-                <h2 class="font-serif text-[15vw] leading-none text-white opacity-5 select-none w-full text-center tracking-tighter mb-10">KI-FRUTAS</h2>
+            <!-- Footer Monumental -->
+            <footer class="bg-[#000] pt-40 pb-10 px-6 md:px-12 border-t border-brand-border text-center overflow-hidden relative">
+                <!-- Background Glow -->
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] bg-brand-gold opacity-5 blur-[120px] pointer-events-none"></div>
+
+                <h2 class="font-serif text-[18vw] leading-none text-white opacity-10 select-none w-full text-center tracking-tighter mb-16 hover:opacity-20 transition-opacity duration-1000">KI-FRUTAS</h2>
                 
-                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-sans text-sm text-gray-500 uppercase tracking-widest">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-sans text-xs text-gray-500 uppercase tracking-[0.2em] relative z-10">
                     <p>&copy; <span id="year"></span> Direitos Reservados</p>
                     
-                    <a href="https://instagram.com/kifrutas_mg" target="_blank" class="interactive-elem text-white hover:text-brand-gold transition-colors flex items-center gap-2">
-                        <i class="ph ph-instagram-logo text-xl"></i> @kifrutas_mg
+                    <a href="https://instagram.com/kifrutas_mg" target="_blank" class="interactive-elem text-white hover:text-brand-gold transition-colors flex items-center gap-3 border border-white/10 px-6 py-3 rounded-full hover:border-brand-gold/50">
+                        <i class="ph-light ph-instagram-logo text-lg"></i> @kifrutas_mg
                     </a>
 
-                    <p>Boutique CeasaMinas</p>
+                    <p>4 Décadas de Excelência</p>
                 </div>
             </footer>
 
         </div>
     </main>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <!-- CDN Corrigida para o Lenis -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <script>
-        // 1. Dynamic Year
+        // 1. Setup Básico
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // 2. Initialize Lenis for Premium Smooth Scroll (com try-catch para segurança)
+        // 2. Smooth Scroll (Lenis)
+        let lenis;
         try {
-            const lenis = new Lenis({
+            lenis = new Lenis({
                 duration: 1.5,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                 direction: 'vertical',
                 gestureDirection: 'vertical',
                 smooth: true,
-                mouseMultiplier: 1,
                 smoothTouch: false,
-                touchMultiplier: 2,
-                infinite: false,
             });
-
-            // Integrate Lenis with GSAP ScrollTrigger
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => { lenis.raf(time * 1000) });
             gsap.ticker.lagSmoothing(0);
-        } catch(e) {
-            console.log("Lenis fallback ativo", e);
-        }
+        } catch(e) { console.log("Lenis fallback"); }
 
-        // 3. Custom Magnetic Cursor Logic
+        // Header Hide/Show on Scroll
+        let lastScroll = 0;
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // 3. Magnetic Buttons & Custom Cursor
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        const interactives = document.querySelectorAll('.interactive-elem, a, button');
-
-        // Only run cursor logic on non-touch devices
-        if(window.matchMedia("(pointer: fine)").matches && cursorDot && cursorOutline) {
+        
+        if(window.matchMedia("(pointer: fine)").matches) {
             window.addEventListener('mousemove', (e) => {
-                const posX = e.clientX;
-                const posY = e.clientY;
-
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
+                gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+                gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power2.out" });
             });
 
-            interactives.forEach(el => {
+            // Hover em links normais
+            document.querySelectorAll('.interactive-elem').forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
             });
+
+            // Hover em imagens grandes (muda o cursor para EXPLORAR)
+            document.querySelectorAll('.interactive-img').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hover-image'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hover-image'));
+            });
+
+            // Efeito Magnético nos Botões
+            document.querySelectorAll('.magnet-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const strength = btn.dataset.strength || 20;
+                    const x = ((e.clientX - rect.left) / rect.width - 0.5) * strength;
+                    const y = ((e.clientY - rect.top) / rect.height - 0.5) * strength;
+                    gsap.to(btn, { x: x, y: y, duration: 0.5, ease: "power2.out" });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+                });
+            });
         }
 
-        // 4. GSAP Animations & Preloader
+        // 4. GSAP Master Timeline & Preloader
         gsap.registerPlugin(ScrollTrigger);
 
-        let animationsInitialized = false;
+        function initAnimations() {
+            // Hero Text Animation
+            gsap.fromTo(".reveal-word", 
+                { y: 150, autoAlpha: 0, rotation: 5 }, 
+                { y: 0, autoAlpha: 1, rotation: 0, duration: 1.5, stagger: 0.15, ease: "power4.out" }
+            );
 
-        function initApp() {
-            if(animationsInitialized) return;
-            animationsInitialized = true;
-            
-            const tl = gsap.timeline();
-            
-            // Preloader Out
-            tl.to(".loader-text", { opacity: 1, duration: 0.8, ease: "power2.out" })
-              .to(".loader-text", { opacity: 0, duration: 0.4, delay: 0.3, ease: "power2.in" })
-              .to("#preloader", { yPercent: -100, duration: 1, ease: "expo.inOut" })
-              
-            // Hero In
-              .fromTo(".reveal-text", 
-                  { y: 100, autoAlpha: 0 }, 
-                  { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "expo.out" }, "-=0.2"
-              )
-              .fromTo(".fade-up",
-                  { y: 30, autoAlpha: 0 },
-                  { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.5"
-              )
-              .to("#hero-img", { scale: 1, duration: 2, ease: "power3.out" }, "-=1.5");
+            gsap.fromTo(".fade-up",
+                { y: 40, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: 1.5, stagger: 0.2, ease: "power3.out", delay: 0.5 }
+            );
 
-            // Scroll Animations for UI elements
-            const fadeUps = document.querySelectorAll('.fade-up');
-            fadeUps.forEach(el => {
-                gsap.fromTo(el, 
-                    { y: 50, autoAlpha: 0 },
-                    {
-                        y: 0, autoAlpha: 1, duration: 1, ease: "power3.out",
-                        scrollTrigger: { trigger: el, start: "top 85%" }
-                    }
-                );
+            // ScrollTrigger para Textos Gerais
+            document.querySelectorAll('.reveal-word:not(.text-monumental .reveal-word)').forEach(el => {
+                gsap.fromTo(el, { y: 100, autoAlpha: 0 }, {
+                    y: 0, autoAlpha: 1, duration: 1.2, ease: "power4.out",
+                    scrollTrigger: { trigger: el.closest('.overflow-hidden') || el, start: "top 90%" }
+                });
             });
 
-            const reveals = document.querySelectorAll('.reveal-text');
-            reveals.forEach(el => {
-                if(el.closest('#hero-img')) return; 
-                
-                gsap.fromTo(el,
-                    { y: 100, autoAlpha: 0 },
-                    {
-                        y: 0, autoAlpha: 1, duration: 1, ease: "expo.out",
-                        scrollTrigger: { trigger: el, start: "top 90%" }
-                    }
-                );
+            // ScrollTrigger para Fade Ups
+            document.querySelectorAll('.fade-up:not(header .fade-up, section:first-child .fade-up)').forEach(el => {
+                gsap.fromTo(el, { y: 40, autoAlpha: 0 }, {
+                    y: 0, autoAlpha: 1, duration: 1, ease: "power3.out",
+                    scrollTrigger: { trigger: el, start: "top 85%" }
+                });
             });
 
-            // Hero Parallax on Scroll
-            gsap.to("#hero-img", {
-                yPercent: 30,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#smooth-wrapper",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                }
+            // ScrollTrigger para Máscaras de Imagem (Reveal effect)
+            document.querySelectorAll('.img-mask').forEach(el => {
+                ScrollTrigger.create({
+                    trigger: el,
+                    start: "top 80%",
+                    onEnter: () => el.classList.add('is-revealed'),
+                    once: true
+                });
             });
 
-            // Horizontal Scroll Section (Vitrine)
+            // Horizontal Scroll Vitrine com Parallax interno
             const horizontalSection = document.querySelector('.horizontal-scroll-wrapper');
             const horizontalContent = document.querySelector('.horizontal-scroll-content');
             
             if(horizontalSection && horizontalContent) {
-                function getScrollAmount() {
-                    let scrollWidth = horizontalContent.scrollWidth;
-                    return -(scrollWidth - window.innerWidth);
-                }
+                const getScrollAmount = () => -(horizontalContent.scrollWidth - window.innerWidth);
 
                 const tween = gsap.to(horizontalContent, {
                     x: getScrollAmount,
@@ -475,12 +540,46 @@
                     scrub: 1,
                     invalidateOnRefresh: true
                 });
+
+                // Parallax nas imagens enquanto rola horizontalmente
+                gsap.utils.toArray('.parallax-img').forEach(img => {
+                    gsap.to(img, {
+                        x: "15vw", // Move a imagem sutilmente na direção oposta
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: "#vitrine",
+                            start: "top top",
+                            end: () => `+=${getScrollAmount() * -1}`,
+                            scrub: 1
+                        }
+                    });
+                });
             }
         }
 
-        // Gatilho de segurança: Tenta iniciar no load, se demorar muito inicia em 2.5s forçadamente.
-        window.addEventListener("load", initApp);
-        setTimeout(initApp, 2500); 
+        // Custom Loader Logic
+        let progress = 0;
+        const loaderPerc = document.getElementById('loader-perc');
+        const loaderBar = document.getElementById('loader-bar');
+        
+        const loaderInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 15) + 5;
+            if(progress >= 100) {
+                progress = 100;
+                clearInterval(loaderInterval);
+                
+                // Finaliza o loader e inicia as animações principais
+                loaderPerc.innerText = progress;
+                loaderBar.style.width = progress + "%";
+                
+                const tlLoader = gsap.timeline({ onComplete: initAnimations });
+                tlLoader.to(".loader-counter, .loader-bar-wrap", { opacity: 0, duration: 0.5, delay: 0.2 })
+                        .to("#preloader", { height: 0, duration: 1.2, ease: "expo.inOut" });
+            } else {
+                loaderPerc.innerText = progress;
+                loaderBar.style.width = progress + "%";
+            }
+        }, 120); // Velocidade do preloader
 
     </script>
 </body>
