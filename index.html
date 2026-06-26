@@ -1,31 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" class="bg-[#050505]">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ki-Frutas | Boutique de Frutas Premium no CeasaMinas</title>
-    <meta name="description" content="Unindo você à qualidade, desde 1987. Frutas nacionais e importadas selecionadas direto do maior entreposto de Minas Gerais.">
+    <meta name="description" content="A arte da curadoria em frutas. Unindo você à qualidade suprema, desde 1987.">
     
-    <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Ki-Frutas Premium">
-    <meta property="og:description" content="Curadoria diária de frutas nacionais e importadas. Visite nossa loja no Pavilhão L do CeasaMinas.">
-    <meta property="og:type" content="website">
+    <meta property="og:description" content="Curadoria diária de frutas nacionais e importadas. Boutique no CeasaMinas.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=1200&auto=format&fit=crop">
-    <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Favicon Simples -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
 
-    <!-- Phosphor Icons -->
+    <!-- Icons & GSAP & Lenis -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         tailwind.config = {
             theme: {
@@ -36,532 +31,445 @@
                     },
                     colors: {
                         brand: {
-                            red: '#D91A1A',
-                            dark: '#0A0A0A',
-                            light: '#F9F9F8',
-                            gold: '#D4AF37',
-                            goldlight: '#F3D573',
-                            petroleum: '#0B1B15',
-                            gray: '#1C1C1C'
+                            red: '#C21818', /* Um vermelho mais profundo e elegante */
+                            dark: '#030303',
+                            light: '#F4F4F0',
+                            gold: '#C5A059', /* Dourado Champagne */
+                            gray: '#111111',
+                            border: 'rgba(255,255,255,0.05)'
                         }
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    spacing: {
+                        '30': '7.5rem',
+                        'screen-20': '120vh',
                     }
                 }
             }
         }
     </script>
 
-    <!-- Custom CSS for Utilities & Animations -->
     <style>
-        /* Ocultar scrollbar mantendo funcionalidade */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0A0A0A; }
-        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+        /* Base Reset & Custom Scrollbar */
+        html { scroll-behavior: initial; } /* Desativa o smooth nativo para o Lenis assumir */
+        body { cursor: none; overflow-x: hidden; background-color: #030303; }
+        ::-webkit-scrollbar { display: none; } /* Esconde scrollbar para look clean */
         
-        .text-shadow-premium { text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8); }
-        .clip-path-diagonal { clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%); }
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 9999; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px; height: 8px; background: #C5A059; border-radius: 50%;
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            pointer-events: none; z-index: 10000; transition: width 0.3s, height 0.3s, background 0.3s;
+        }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid rgba(197, 160, 89, 0.5); border-radius: 50%;
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            pointer-events: none; z-index: 9999; transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+        }
+        .hover-active .cursor-dot { width: 0; height: 0; }
+        .hover-active .cursor-outline { width: 60px; height: 60px; background: rgba(197, 160, 89, 0.1); border-color: #C5A059; backdrop-filter: blur(2px); }
+
+        /* Typography & Utilities */
+        .text-huge { font-size: clamp(3rem, 10vw, 9rem); line-height: 0.9; }
+        .clip-text { -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stroke-text { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
         
-        /* GSAP Initial States */
-        .reveal-up, .reveal-fade, .reveal-scale { opacity: 0; visibility: hidden; }
+        /* GSAP Setup Classes */
+        .reveal-text, .reveal-img, .fade-up { visibility: hidden; }
         
-        /* Smooth Image Hovers */
-        .img-zoom-container { overflow: hidden; }
-        .img-zoom-container img { transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .img-zoom-container:hover img { transform: scale(1.08); }
+        /* Image Hover Polish */
+        .img-wrap { overflow: hidden; position: relative; }
+        .img-wrap img { transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); will-change: transform; }
+        .img-wrap:hover img { transform: scale(1.05); }
+
+        /* Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; width: 100%; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1.5rem 0; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Loader */
+        #preloader { position: fixed; inset: 0; background: #030303; z-index: 100000; display: flex; justify-content: center; align-items: center; }
+        .loader-text { font-family: 'Playfair Display', serif; font-size: 2rem; color: #C5A059; opacity: 0; }
     </style>
 </head>
-<body class="bg-brand-dark text-brand-light font-sans antialiased overflow-x-hidden">
+<body class="text-brand-light antialiased selection:bg-brand-gold selection:text-brand-dark">
 
-    <!-- Header / Nav -->
-    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-500 py-4 border-b border-transparent">
-        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" class="relative z-10 flex items-center">
-                <img src="image_f31069.png" alt="Ki-Frutas Logo" class="h-12 md:h-16 object-contain bg-white/90 p-1 rounded backdrop-blur-md shadow-lg" onerror="this.src='https://via.placeholder.com/150x60/ffffff/d91a1a?text=Ki-Frutas'">
-            </a>
+    <div class="noise-overlay"></div>
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
 
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-                <a href="#diferenciais" class="hover:text-brand-gold transition-colors">Diferenciais</a>
-                <a href="#vitrine" class="hover:text-brand-gold transition-colors">Vitrine</a>
-                <a href="#experiencia" class="hover:text-brand-gold transition-colors">A Experiência</a>
-                <a href="#localizacao" class="hover:text-brand-gold transition-colors">Localização</a>
-            </nav>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-text tracking-[0.2em] italic">Ki-Frutas.</div>
+    </div>
 
-            <!-- CTA Header -->
-            <a href="https://wa.me/5531339942060?text=Olá!%20Acessei%20o%20site%20da%20Ki-Frutas%20e%20gostaria%20de%20fazer%20um%20pedido." 
-               target="_blank" 
-               class="hidden md:flex items-center gap-2 bg-brand-gold text-brand-dark px-6 py-2.5 rounded-full font-semibold hover:bg-brand-goldlight transition-all hover:shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+    <header class="fixed w-full top-0 z-50 mix-blend-difference px-6 md:px-12 py-6 flex justify-between items-center pointer-events-none">
+        <a href="#" class="relative z-10 pointer-events-auto interactive-elem">
+            <!-- Logo usando filtro para ficar branca/brilhante no mix-blend -->
+            <img src="image_f31069.png" alt="Ki-Frutas" class="h-10 md:h-12 object-contain brightness-0 invert opacity-90" onerror="this.src='https://via.placeholder.com/150x50/000000/ffffff?text=KI-FRUTAS'">
+        </a>
+        <a href="https://wa.me/5531339942060" target="_blank" class="pointer-events-auto interactive-elem flex items-center gap-2 text-sm font-sans tracking-widest uppercase text-white hover:text-brand-gold transition-colors duration-500">
+            <span class="hidden md:inline">Falar com Consultor</span>
+            <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center hover:border-brand-gold transition-colors">
                 <i class="ph ph-whatsapp-logo text-xl"></i>
-                Fazer Pedido
-            </a>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden text-brand-light text-3xl z-10">
-                <i class="ph ph-list"></i>
-            </button>
-        </div>
+            </div>
+        </a>
     </header>
 
-    <!-- 1. HERO SECTION -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Parallax Background -->
-        <div id="hero-bg" class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark/60 to-brand-dark z-10"></div>
-            <!-- Imagem de frutas vibrantes escuras premium -->
-            <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=2070&auto=format&fit=crop" 
-                 alt="Frutas premium selecionadas" 
-                 class="w-full h-full object-cover object-center transform scale-105">
-        </div>
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
 
-        <div class="container mx-auto px-6 md:px-12 relative z-20 text-center md:text-left mt-10">
-            <p class="reveal-up text-brand-gold font-semibold tracking-[0.2em] uppercase text-xs md:text-sm mb-6">
-                <i class="ph-fill ph-crown mr-2 align-middle text-lg"></i> Ki-Frutas Premium
-            </p>
-            
-            <h1 class="reveal-up font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 text-shadow-premium max-w-5xl">
-                Da terra à sua mesa, com a qualidade que só <span class="italic text-brand-gold">4 décadas</span> garantem.
-            </h1>
-            
-            <p class="reveal-up text-lg md:text-xl text-gray-300 font-light mb-12 max-w-2xl leading-relaxed">
-                Nacionais e importadas. Curadoria diária direta do maior entreposto de Minas Gerais para a sua casa ou negócio.
-            </p>
-            
-            <div class="reveal-up flex flex-col md:flex-row gap-6 items-center md:items-start">
-                <a href="https://wa.me/5531339942060?text=Olá!%20Acessei%20o%20site%20e%20gostaria%20de%20receber%20a%20tabela%20de%20frutas%20disponíveis%20hoje." 
-                   target="_blank" 
-                   class="w-full md:w-auto bg-brand-red text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-3 hover:bg-red-700 transition-all shadow-[0_0_20px_rgba(217,26,26,0.4)] group">
-                    <i class="ph ph-whatsapp-logo text-2xl group-hover:scale-110 transition-transform"></i>
-                    Comprar pelo WhatsApp
-                </a>
-                <a href="#experiencia" class="w-full md:w-auto bg-transparent border border-brand-gold text-brand-gold px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-3 hover:bg-brand-gold hover:text-brand-dark transition-all">
-                    Conheça a Loja
-                    <i class="ph ph-arrow-right text-xl"></i>
-                </a>
-            </div>
-        </div>
-        
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center animate-bounce">
-            <span class="text-xs text-brand-gold uppercase tracking-widest mb-2 font-medium">Scroll</span>
-            <i class="ph ph-caret-down text-brand-gold"></i>
-        </div>
-    </section>
-
-    <!-- 2. NÚMEROS / TRADIÇÃO -->
-    <section id="numeros" class="bg-brand-light text-brand-dark py-24 relative">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-brand-gold"></div>
-        <div class="container mx-auto px-6 md:px-12">
-            
-            <div class="text-center mb-16 reveal-up">
-                <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">"Unindo você à qualidade"</h2>
-                <p class="font-sans text-gray-600 tracking-widest uppercase text-sm font-semibold">Nossa história em números</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-gray-300">
-                <div class="reveal-up pt-8 md:pt-0">
-                    <div class="text-5xl md:text-7xl font-serif font-bold text-brand-red mb-2 flex justify-center items-baseline">
-                        <span class="counter" data-target="37">0</span>
-                        <span class="text-3xl">+</span>
-                    </div>
-                    <p class="text-lg font-medium text-gray-700">Anos de Tradição</p>
-                    <p class="text-sm text-gray-500 mt-2">Desde 1987 no mercado</p>
-                </div>
-                
-                <div class="reveal-up pt-8 md:pt-0">
-                    <div class="text-5xl md:text-7xl font-serif font-bold text-brand-red mb-2 flex justify-center items-baseline">
-                        <span class="counter" data-target="80">0</span>
-                        <span class="text-3xl">+</span>
-                    </div>
-                    <p class="text-lg font-medium text-gray-700">Variedades de Frutas</p>
-                    <p class="text-sm text-gray-500 mt-2">O mundo na sua mesa</p>
+            <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 z-0 bg-brand-dark">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Frutas Premium" 
+                         class="w-full h-full object-cover object-center opacity-40 scale-110" id="hero-img">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/50"></div>
                 </div>
 
-                <div class="reveal-up pt-8 md:pt-0">
-                    <div class="text-5xl md:text-7xl font-serif font-bold text-brand-red mb-2 flex justify-center items-baseline">
-                        <span class="counter" data-target="1000">0</span>
-                        <span class="text-3xl">+</span>
-                    </div>
-                    <p class="text-lg font-medium text-gray-700">Clientes & Parceiros</p>
-                    <p class="text-sm text-gray-500 mt-2">Restaurantes, hotéis e lares</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. DIFERENCIAIS -->
-    <section id="diferenciais" class="bg-brand-gray py-24 border-t border-brand-dark relative overflow-hidden">
-        <!-- Decorator -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-        
-        <div class="container mx-auto px-6 md:px-12 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-up">
-                <div class="max-w-2xl">
-                    <span class="text-brand-gold tracking-widest uppercase text-sm font-semibold mb-2 block">O Padrão Ki-Frutas</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold">Por que somos a escolha dos chefs e famílias exigentes?</h2>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card 1 -->
-                <div class="reveal-up bg-brand-dark p-8 border border-white/5 hover:border-brand-gold/50 transition-colors duration-500 group">
-                    <i class="ph ph-magnifying-glass text-4xl text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-500"></i>
-                    <h3 class="font-serif text-2xl mb-3">Curadoria Diária</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Nossa equipe inspeciona cada lote nas madrugadas do Ceasa para garantir textura, cor e sabor impecáveis.</p>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="reveal-up bg-brand-dark p-8 border border-white/5 hover:border-brand-gold/50 transition-colors duration-500 group" style="transition-delay: 100ms;">
-                    <i class="ph ph-airplane-tilt text-4xl text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-500"></i>
-                    <h3 class="font-serif text-2xl mb-3">Linha Importada</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Cerejas, pitayas amarelas, kiwis gold. Trazemos as joias da fruticultura mundial direto para você.</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="reveal-up bg-brand-dark p-8 border border-white/5 hover:border-brand-gold/50 transition-colors duration-500 group" style="transition-delay: 200ms;">
-                    <i class="ph ph-storefront text-4xl text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-500"></i>
-                    <h3 class="font-serif text-2xl mb-3">Direto da Fonte</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Localizados no coração do CeasaMinas, cortamos intermediários. Isso significa frescor máximo e preço justo.</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="reveal-up bg-brand-dark p-8 border border-white/5 hover:border-brand-gold/50 transition-colors duration-500 group" style="transition-delay: 300ms;">
-                    <i class="ph ph-handshake text-4xl text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-500"></i>
-                    <h3 class="font-serif text-2xl mb-3">Atendimento Pro</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Seja para abastecer um restaurante Michelin ou a fruteira de casa, nosso atendimento via WhatsApp é ágil e personalizado.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. VITRINE DE PRODUTOS -->
-    <section id="vitrine" class="bg-brand-light text-brand-dark py-24 pb-32">
-        <div class="container mx-auto px-6 md:px-12">
-            
-            <div class="text-center mb-16 reveal-up">
-                <span class="text-brand-gold tracking-widest uppercase text-sm font-bold mb-2 block">Nossa Seleção</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">A Vitrine Ki-Frutas</h2>
-                <div class="w-24 h-px bg-brand-gold mx-auto"></div>
-            </div>
-
-            <!-- Nacionais -->
-            <div class="mb-20">
-                <h3 class="font-serif text-3xl font-bold mb-8 flex items-center gap-4 reveal-up">
-                    <span class="text-brand-red text-xl">●</span> Tesouros Nacionais
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="group relative img-zoom-container h-80 rounded bg-brand-dark reveal-up cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1550258859-d084c02781af?q=80&w=800&auto=format&fit=crop" alt="Mamão Papaya" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                            <h4 class="text-white font-serif text-2xl mb-1">Mamões Selecionados</h4>
-                            <p class="text-brand-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">Doçura e textura perfeitas</p>
-                        </div>
-                    </div>
-                    <div class="group relative img-zoom-container h-80 rounded bg-brand-dark reveal-up cursor-pointer" style="transition-delay: 100ms;">
-                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=800&auto=format&fit=crop" alt="Uvas Frescas" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                            <h4 class="text-white font-serif text-2xl mb-1">Uvas Especiais</h4>
-                            <p class="text-brand-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">Sem semente, crocantes e doces</p>
-                        </div>
-                    </div>
-                    <div class="group relative img-zoom-container h-80 rounded bg-brand-dark reveal-up cursor-pointer" style="transition-delay: 200ms;">
-                        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=800&auto=format&fit=crop" alt="Maçãs Nacionais" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                            <h4 class="text-white font-serif text-2xl mb-1">Maçãs Premium</h4>
-                            <p class="text-brand-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">O símbolo da nossa qualidade</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Importadas -->
-            <div>
-                <h3 class="font-serif text-3xl font-bold mb-8 flex items-center gap-4 reveal-up text-right justify-end md:justify-start">
-                    <span class="text-brand-gold text-xl">✦</span> Linha Importada Premium
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="group relative img-zoom-container h-96 md:col-span-2 rounded bg-brand-dark reveal-up cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1200&auto=format&fit=crop" alt="Cerejas Importadas" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-8">
-                            <h4 class="text-white font-serif text-3xl mb-2">Cerejas Frescas</h4>
-                            <p class="text-brand-gold text-base opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">Calibre graúdo, textura firme e sabor inesquecível.</p>
-                        </div>
-                    </div>
-                    <div class="group relative img-zoom-container h-96 rounded bg-brand-dark reveal-up cursor-pointer" style="transition-delay: 100ms;">
-                        <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=800&auto=format&fit=crop" alt="Kiwi" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-                            <h4 class="text-white font-serif text-2xl mb-1">Kiwis Selecionados</h4>
-                            <p class="text-brand-gold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">Green e Gold, ricos em sabor</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-16 text-center reveal-up">
-                <a href="https://wa.me/5531339942060?text=Gostaria%20de%20receber%20o%20catálogo%20completo%20de%20frutas%20disponíveis%20hoje." 
-                   target="_blank" 
-                   class="inline-flex items-center gap-3 border-b-2 border-brand-red text-brand-red font-bold text-lg pb-1 hover:text-red-800 hover:border-red-800 transition-colors">
-                    Solicitar catálogo completo via WhatsApp <i class="ph-bold ph-arrow-right"></i>
-                </a>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- 5. A EXPERIÊNCIA (Visite a Loja) -->
-    <section id="experiencia" class="bg-brand-petroleum text-brand-light relative overflow-hidden">
-        <div class="flex flex-col lg:flex-row min-h-[600px]">
-            <!-- Text Side -->
-            <div class="w-full lg:w-1/2 p-10 md:p-20 flex flex-col justify-center relative z-10">
-                <i class="ph-fill ph-quotes text-5xl text-brand-gold/30 mb-6 reveal-up"></i>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 reveal-up leading-tight">
-                    Sair da rotina e viver a energia do maior entreposto de Minas.
-                </h2>
-                <p class="text-gray-300 mb-8 text-lg leading-relaxed font-light reveal-up">
-                    Visitar a Ki-Frutas no Pavilhão L do CeasaMinas não é apenas fazer compras. É ter contato direto com aromas, cores e texturas que você não encontra em um supermercado comum. 
-                </p>
-                <p class="text-gray-300 mb-10 text-lg leading-relaxed font-light reveal-up">
-                    Sinta-se à vontade para degustar, conversar com nossos especialistas e escolher pessoalmente as melhores frutas para sua casa ou negócio, com o benefício de quem compra na fonte.
-                </p>
-                <div class="reveal-up">
-                    <a href="#localizacao" class="inline-flex items-center gap-3 bg-white text-brand-petroleum px-8 py-4 rounded-full font-bold text-lg hover:bg-brand-gold transition-colors shadow-xl">
-                        <i class="ph-fill ph-map-pin"></i> Planejar Visita
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Image Side -->
-            <div class="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-full img-zoom-container">
-                <div class="absolute inset-0 bg-brand-petroleum/20 z-10"></div>
-                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop" 
-                     alt="Experiência Ceasa Mercado de Frutas" 
-                     class="absolute w-full h-full object-cover">
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. LOCALIZAÇÃO E CONTATO -->
-    <section id="localizacao" class="bg-brand-dark py-24 relative">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
-                <!-- Info -->
-                <div class="lg:col-span-5 reveal-up">
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-8">Onde a mágica acontece.</h2>
+                <div class="relative z-10 w-full px-6 md:px-12 flex flex-col justify-end h-full pb-20 md:pb-32">
+                    <p class="fade-up text-brand-gold font-sans tracking-[0.3em] uppercase text-xs mb-6 flex items-center gap-4">
+                        <span class="w-8 h-[1px] bg-brand-gold"></span>
+                        Qualidade desde 1987
+                    </p>
+                    <h1 class="font-serif text-huge font-medium text-white mb-6">
+                        <div class="overflow-hidden"><span class="block reveal-text">A Arte da</span></div>
+                        <div class="overflow-hidden"><span class="block reveal-text italic text-brand-gold">Fruta.</span></div>
+                    </h1>
                     
-                    <div class="space-y-8">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-gray flex items-center justify-center shrink-0 border border-white/10">
-                                <i class="ph ph-map-pin text-2xl text-brand-gold"></i>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-t border-brand-border pt-8 mt-12 gap-8">
+                        <p class="fade-up font-sans font-light text-gray-400 max-w-md text-lg leading-relaxed">
+                            Da terra à sua mesa. Curadoria diária direta do maior entreposto de Minas Gerais para lares e alta gastronomia.
+                        </p>
+                        
+                        <a href="#vitrine" class="fade-up interactive-elem group flex items-center gap-4 cursor-none">
+                            <span class="uppercase tracking-widest text-xs font-semibold text-white group-hover:text-brand-gold transition-colors">Descubra</span>
+                            <div class="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                <i class="ph ph-arrow-down-right text-white text-2xl"></i>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-xl mb-1">Endereço</h4>
-                                <p class="text-gray-400 leading-relaxed">
-                                    CEASAMINAS - Pavilhão L<br>
-                                    Rua Ibiá<br>
-                                    Contagem / MG
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-gray flex items-center justify-center shrink-0 border border-white/10">
-                                <i class="ph ph-clock text-2xl text-brand-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xl mb-1">Horário de Funcionamento</h4>
-                                <p class="text-gray-400 leading-relaxed">
-                                    Segunda a Sexta: 05h às 16h<br>
-                                    Sábados: 05h às 12h
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-brand-gray flex items-center justify-center shrink-0 border border-white/10">
-                                <i class="ph ph-phone text-2xl text-brand-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xl mb-1">Atendimento</h4>
-                                <p class="text-gray-400 mb-2">Telefone fixo e WhatsApp corporativo:</p>
-                                <a href="https://wa.me/5531339942060" target="_blank" class="text-2xl font-serif text-brand-light hover:text-brand-gold transition-colors">(31) 3394-2060</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-10">
-                        <a href="https://maps.google.com/?q=CeasaMinas+Contagem+Pavilhao+L" target="_blank" class="inline-flex items-center gap-3 bg-brand-gold text-brand-dark px-8 py-4 rounded-full font-bold hover:bg-white transition-colors">
-                            <i class="ph ph-navigation-arrow text-xl"></i> Como Chegar
                         </a>
                     </div>
                 </div>
+            </section>
 
-                <!-- Map -->
-                <div class="lg:col-span-7 h-[500px] rounded-xl overflow-hidden border border-white/10 reveal-up shadow-2xl relative">
-                    <!-- Placeholder de Overlay para dar estilo -->
-                    <div class="absolute inset-0 pointer-events-none border border-brand-gold/20 rounded-xl z-10"></div>
-                    <!-- Google Maps Embed: CeasaMinas -->
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.492211910609!2d-44.0456102241639!3d-19.88251268141829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa695e263725b8b%3A0xc6ed709ee00f1c90!2sCeasaMinas!5e0!3m2!1spt-BR!2sbr!4v1716300000000!5m2!1spt-BR!2sbr" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0; filter: contrast(1.1) opacity(0.9);" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+            <div class="marquee-container bg-brand-gray flex text-brand-gold font-serif text-3xl md:text-5xl italic opacity-90">
+                <div class="marquee-content">
+                    Boutique de Frutas ✦ CeasaMinas ✦ Qualidade Premium ✦ Desde 1987 ✦ Nacionais & Importadas ✦ Alta Gastronomia ✦ Boutique de Frutas ✦ CeasaMinas ✦ Qualidade Premium ✦ Desde 1987 ✦ Nacionais & Importadas ✦ Alta Gastronomia ✦
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 7. FOOTER -->
-    <footer class="bg-[#050505] pt-16 pb-8 border-t border-white/5">
-        <div class="container mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <!-- Brand -->
-                <div class="md:col-span-1">
-                    <img src="image_f31069.png" alt="Ki-Frutas Logo" class="h-16 object-contain mb-6 bg-white/10 rounded p-2" onerror="this.src='https://via.placeholder.com/150x60/000000/d4af37?text=Ki-Frutas'">
-                    <p class="text-gray-500 text-sm max-w-xs leading-relaxed">
-                        Unindo você à qualidade, desde 1987. A vitrine premium de frutas do CeasaMinas, agora na palma da sua mão.
+            <section class="py-32 md:py-48 px-6 md:px-12 bg-brand-dark relative">
+                <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-16">
+                    <div class="lg:w-1/2">
+                        <h2 class="font-serif text-4xl md:text-6xl mb-10 leading-tight">
+                            <div class="overflow-hidden"><span class="block reveal-text">Não somos um</span></div>
+                            <div class="overflow-hidden"><span class="block reveal-text italic text-gray-500">fornecedor comum.</span></div>
+                            <div class="overflow-hidden"><span class="block reveal-text">Somos <span class="text-brand-gold">curadores</span>.</span></div>
+                        </h2>
+                        <a href="https://wa.me/5531339942060" target="_blank" class="interactive-elem inline-flex items-center gap-3 border-b border-brand-gold pb-1 text-brand-gold font-sans tracking-widest uppercase text-sm hover:text-white hover:border-white transition-all">
+                            Agendar Visita ao Ceasa <i class="ph ph-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="lg:w-1/3 flex flex-col justify-center gap-12">
+                        <div class="fade-up border-l border-brand-border pl-8">
+                            <div class="font-serif text-6xl text-white mb-2">37<span class="text-brand-gold italic">anos</span></div>
+                            <p class="font-sans text-sm text-gray-400 tracking-wider uppercase">De tradição impecável</p>
+                        </div>
+                        <div class="fade-up border-l border-brand-border pl-8">
+                            <div class="font-serif text-6xl text-white mb-2">80<span class="text-brand-gold italic">+</span></div>
+                            <p class="font-sans text-sm text-gray-400 tracking-wider uppercase">Variedades catalogadas</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="diferenciais" class="py-20 px-6 md:px-12 bg-[#050505]">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[300px]">
+                        
+                        <!-- Bento 1: Imagem Grande -->
+                        <div class="img-wrap fade-up md:col-span-2 md:row-span-2 rounded-2xl bg-brand-gray relative group">
+                            <img src="https://images.unsplash.com/photo-1596591606975-97ee5cef3a1e?q=80&w=1200&auto=format&fit=crop" alt="Curadoria" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent p-10 flex flex-col justify-end">
+                                <h3 class="font-serif text-4xl mb-3">Inspeção Madrugada Adentro</h3>
+                                <p class="font-sans text-gray-300 max-w-md">Nossa equipe seleciona cada lote diretamente no pavilhão para garantir textura, cor e sabor que a alta gastronomia exige.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bento 2: Importadas -->
+                        <div class="fade-up md:col-span-1 md:row-span-1 rounded-2xl bg-[#0a0a0a] border border-white/5 p-10 flex flex-col justify-center relative overflow-hidden group interactive-elem">
+                            <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-brand-gold rounded-full opacity-10 blur-2xl group-hover:opacity-20 transition-opacity"></div>
+                            <i class="ph-light ph-airplane-tilt text-4xl text-brand-gold mb-6"></i>
+                            <h3 class="font-serif text-2xl mb-2">Linha Importada</h3>
+                            <p class="font-sans text-sm text-gray-400">Joias da fruticultura mundial trazidas diretamente para você.</p>
+                        </div>
+
+                        <!-- Bento 3: Contato Direto -->
+                        <div class="fade-up md:col-span-1 md:row-span-1 rounded-2xl bg-brand-red p-10 flex flex-col justify-center interactive-elem hover:bg-[#a11313] transition-colors">
+                            <i class="ph-light ph-storefront text-4xl text-white mb-6"></i>
+                            <h3 class="font-serif text-2xl mb-2">Direto da Fonte</h3>
+                            <p class="font-sans text-sm text-white/80">Sediados no coração do CeasaMinas. Frescor máximo, sem intermediários.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="vitrine" class="py-32 bg-[#030303] overflow-hidden relative">
+                <div class="px-6 md:px-12 mb-16 max-w-7xl mx-auto flex justify-between items-end">
+                    <h2 class="font-serif text-4xl md:text-6xl">
+                        A Coleção<br><span class="text-brand-gold italic">Premium</span>
+                    </h2>
+                    <p class="hidden md:block font-sans text-gray-500 uppercase tracking-widest text-xs border-b border-gray-500 pb-1">
+                        Deslize para explorar
                     </p>
                 </div>
-                
-                <!-- Links -->
-                <div class="md:col-span-1">
-                    <h5 class="text-white font-bold mb-4 tracking-widest uppercase text-sm">Navegação</h5>
-                    <ul class="space-y-3">
-                        <li><a href="#hero" class="text-gray-500 hover:text-brand-gold transition-colors">Início</a></li>
-                        <li><a href="#diferenciais" class="text-gray-500 hover:text-brand-gold transition-colors">Diferenciais</a></li>
-                        <li><a href="#vitrine" class="text-gray-500 hover:text-brand-gold transition-colors">Produtos</a></li>
-                        <li><a href="#localizacao" class="text-gray-500 hover:text-brand-gold transition-colors">Como Chegar</a></li>
-                    </ul>
-                </div>
 
-                <!-- Social -->
-                <div class="md:col-span-1">
-                    <h5 class="text-white font-bold mb-4 tracking-widest uppercase text-sm">Acompanhe</h5>
-                    <a href="https://instagram.com/kifrutas_mg" target="_blank" class="inline-flex items-center gap-3 text-gray-500 hover:text-white transition-colors mb-4 group">
-                        <div class="w-10 h-10 rounded-full bg-brand-gray flex items-center justify-center group-hover:bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 transition-all">
-                            <i class="ph ph-instagram-logo text-xl group-hover:text-white"></i>
+                <!-- GSAP Horizontal Scroll Container -->
+                <div class="horizontal-scroll-wrapper relative w-full h-[60vh] md:h-[70vh]">
+                    <div class="horizontal-scroll-content flex gap-8 px-6 md:px-12 h-full w-max absolute top-0 left-0">
+                        
+                        <!-- Item 1 -->
+                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem">
+                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1528825871115-3581a5387919?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Cerejas">
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <h3 class="font-serif text-4xl text-white mb-2">Cerejas Importadas</h3>
+                                <p class="text-brand-gold font-sans">Calibre graúdo e brilho intenso</p>
+                            </div>
                         </div>
-                        <span>@kifrutas_mg</span>
-                    </a>
+
+                        <!-- Item 2 -->
+                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem mt-12 md:mt-24">
+                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1550258859-d084c02781af?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Mamão">
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <h3 class="font-serif text-4xl text-white mb-2">Papaya Exportação</h3>
+                                <p class="text-brand-gold font-sans">Doçura e textura uniformes</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="w-[85vw] md:w-[40vw] h-full relative group interactive-elem">
+                            <div class="img-wrap w-full h-full rounded-xl overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover filter grayscale-[20%] group-hover:grayscale-0" alt="Uvas">
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <h3 class="font-serif text-4xl text-white mb-2">Uvas Especiais</h3>
+                                <p class="text-brand-gold font-sans">Sem sementes, máxima crocância</p>
+                            </div>
+                        </div>
+
+                        <!-- Item CTA -->
+                        <div class="w-[85vw] md:w-[30vw] h-full flex flex-col items-center justify-center bg-[#0a0a0a] rounded-xl border border-white/5 p-10 interactive-elem">
+                            <h3 class="font-serif text-3xl mb-6 text-center">Acesse a Tabela Completa do Dia</h3>
+                            <a href="https://wa.me/5531339942060?text=Olá,%20gostaria%20da%20tabela%20de%20frutas%20premium%20de%20hoje." target="_blank" class="w-16 h-16 rounded-full bg-brand-gold flex items-center justify-center hover:scale-110 transition-transform">
+                                <i class="ph ph-whatsapp-logo text-black text-2xl"></i>
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600">
-                <p>&copy; <span id="year"></span> Ki-Frutas. Todos os direitos reservados.</p>
-                <p>Criado com curadoria e excelência.</p>
-            </div>
+            <section id="localizacao" class="py-32 px-6 md:px-12 bg-[#050505] relative border-t border-brand-border">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <div class="order-2 lg:order-1 h-[60vh] img-wrap rounded-2xl overflow-hidden">
+                        <!-- Mapa Estilizado Escuro -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3751.492211910609!2d-44.0456102241639!3d-19.88251268141829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa695e263725b8b%3A0xc6ed709ee00f1c90!2sCeasaMinas!5e0!3m2!1spt-BR!2sbr!4v1716300000000!5m2!1spt-BR!2sbr" 
+                            width="100%" height="100%" style="border:0; filter: grayscale(100%) invert(90%) contrast(1.2);" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+
+                    <div class="order-1 lg:order-2 fade-up">
+                        <p class="text-brand-gold font-sans tracking-widest uppercase text-sm mb-4">A Experiência Física</p>
+                        <h2 class="font-serif text-4xl md:text-5xl mb-10">Pavilhão L.<br><span class="italic text-gray-500">Sinta o frescor.</span></h2>
+                        
+                        <div class="space-y-8 font-sans">
+                            <div class="flex flex-col">
+                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Endereço</span>
+                                <span class="text-lg">CEASAMINAS - Pavilhão L<br>Rua Ibiá, Contagem / MG</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Horários</span>
+                                <span class="text-lg">Seg - Sex: 05h às 16h<br>Sáb: 05h às 12h</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-gray-500 text-xs uppercase tracking-widest mb-1">Contato Direto</span>
+                                <a href="tel:+553133942060" class="text-2xl font-serif text-brand-gold hover:text-white transition-colors interactive-elem w-fit">(31) 3394-2060</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="bg-brand-dark pt-32 pb-10 px-6 md:px-12 border-t border-brand-border text-center overflow-hidden">
+                <!-- Huge Typography Footer Logo -->
+                <h2 class="font-serif text-[15vw] leading-none text-white opacity-5 select-none w-full text-center tracking-tighter mb-10">KI-FRUTAS</h2>
+                
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 font-sans text-sm text-gray-500 uppercase tracking-widest">
+                    <p>&copy; <span id="year"></span> Direitos Reservados</p>
+                    
+                    <a href="https://instagram.com/kifrutas_mg" target="_blank" class="interactive-elem text-white hover:text-brand-gold transition-colors flex items-center gap-2">
+                        <i class="ph ph-instagram-logo text-xl"></i> @kifrutas_mg
+                    </a>
+
+                    <p>Boutique CeasaMinas</p>
+                </div>
+            </footer>
+
         </div>
-    </footer>
+    </main>
 
-    <!-- Botão Flutuante WhatsApp (Persistente) -->
-    <a href="https://wa.me/5531339942060?text=Olá!%20Vim%20pelo%20site%20da%20Ki-Frutas%20e%20preciso%20de%20atendimento." 
-       target="_blank" 
-       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:scale-110 hover:bg-[#1EBE57] transition-all duration-300 group flex items-center justify-center">
-        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
-        <!-- Tooltip -->
-        <span class="absolute right-full mr-4 bg-brand-dark text-white text-sm font-medium py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg border border-white/10">
-            Fale Conosco
-        </span>
-    </a>
-
-    <!-- GSAP Scripts para Animações -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
-    <!-- Main Logic -->
     <script>
-        // Set dynamic year in footer
+        // 1. Dynamic Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Navbar bg change on scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-lg', 'border-white/5');
-                navbar.classList.remove('py-4', 'border-transparent');
-                navbar.classList.add('py-2');
-            } else {
-                navbar.classList.remove('bg-brand-dark/95', 'backdrop-blur-md', 'shadow-lg', 'border-white/5', 'py-2');
-                navbar.classList.add('py-4', 'border-transparent');
-            }
+        // 2. Initialize Lenis for Premium Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
         });
 
-        // Initialize GSAP
+        // Integrate Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+        gsap.ticker.lagSmoothing(0);
+
+        // 3. Custom Magnetic Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const interactives = document.querySelectorAll('.interactive-elem, a, button');
+
+        // Only run cursor logic on non-touch devices
+        if(window.matchMedia("(pointer: fine)").matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Animate dot instantly
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                // Animate outline with slight delay for smooth effect
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hover-active'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hover-active'));
+            });
+        }
+
+        // 4. GSAP Animations & Preloader
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Parallax Setup
-        gsap.to("#hero-bg img", {
-            yPercent: 30,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#hero",
-                start: "top top", 
-                end: "bottom top",
-                scrub: true
-            }
-        });
-
-        // Reveal Elements Animation (Fade Up)
-        const revealElements = document.querySelectorAll('.reveal-up');
-        revealElements.forEach((el) => {
-            gsap.fromTo(el, 
-                { autoAlpha: 0, y: 40 }, 
-                { 
-                    duration: 1, 
-                    autoAlpha: 1, 
-                    y: 0, 
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 85%", // Trigger when element is 85% from top of viewport
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
-        // Counter Animations
-        const counters = document.querySelectorAll('.counter');
-        counters.forEach(counter => {
-            let target = parseInt(counter.getAttribute('data-target'));
+        window.addEventListener("load", () => {
+            const tl = gsap.timeline();
             
-            ScrollTrigger.create({
-                trigger: "#numeros",
-                start: "top 75%",
-                onEnter: () => {
-                    gsap.to(counter, {
-                        innerHTML: target,
-                        duration: 2.5,
-                        ease: "power2.out",
-                        snap: { innerHTML: 1 },
-                        onUpdate: function() {
-                            // Formata com separador de milhar se necessário (ex: 1.000)
-                            counter.innerHTML = Math.round(counter.innerHTML).toLocaleString('pt-BR');
-                        }
-                    });
-                },
-                once: true // Anima apenas a primeira vez que o usuário dá scroll
+            // Preloader Out
+            tl.to(".loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+              .to(".loader-text", { opacity: 0, duration: 0.5, delay: 0.5, ease: "power2.in" })
+              .to("#preloader", { yPercent: -100, duration: 1, ease: "expo.inOut" })
+              
+            // Hero In
+              .fromTo(".reveal-text", 
+                  { y: 100, autoAlpha: 0 }, 
+                  { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "expo.out" }, "-=0.2"
+              )
+              .fromTo(".fade-up",
+                  { y: 30, autoAlpha: 0 },
+                  { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.5"
+              )
+              .to("#hero-img", { scale: 1, duration: 2, ease: "power3.out" }, "-=1.5");
+
+
+            // Scroll Animations for UI elements
+            const fadeUps = document.querySelectorAll('.fade-up');
+            fadeUps.forEach(el => {
+                gsap.fromTo(el, 
+                    { y: 50, autoAlpha: 0 },
+                    {
+                        y: 0, autoAlpha: 1, duration: 1, ease: "power3.out",
+                        scrollTrigger: { trigger: el, start: "top 85%" }
+                    }
+                );
             });
-        });
-        
-        // Smooth scroll para links internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if(target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80, // Offset for sticky header
-                        behavior: 'smooth'
-                    });
+
+            const reveals = document.querySelectorAll('.reveal-text');
+            reveals.forEach(el => {
+                // Ignore elements already animated in Hero
+                if(el.closest('#hero')) return; 
+                
+                gsap.fromTo(el,
+                    { y: 100, autoAlpha: 0 },
+                    {
+                        y: 0, autoAlpha: 1, duration: 1, ease: "expo.out",
+                        scrollTrigger: { trigger: el, start: "top 90%" }
+                    }
+                );
+            });
+
+            // Hero Parallax on Scroll
+            gsap.to("#hero-img", {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#smooth-wrapper",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
                 }
             });
+
+            // Horizontal Scroll Section (Vitrine)
+            const horizontalSection = document.querySelector('.horizontal-scroll-wrapper');
+            const horizontalContent = document.querySelector('.horizontal-scroll-content');
+            
+            if(horizontalSection && horizontalContent) {
+                function getScrollAmount() {
+                    let scrollWidth = horizontalContent.scrollWidth;
+                    return -(scrollWidth - window.innerWidth);
+                }
+
+                const tween = gsap.to(horizontalContent, {
+                    x: getScrollAmount,
+                    ease: "none"
+                });
+
+                ScrollTrigger.create({
+                    trigger: "#vitrine",
+                    start: "top top",
+                    end: () => `+=${getScrollAmount() * -1}`,
+                    pin: true,
+                    animation: tween,
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
+            }
         });
     </script>
 </body>
